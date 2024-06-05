@@ -1,0 +1,31 @@
+---
+import Picture from '@components/UI/Picture/Picture.astro'
+import Layout from '@layouts/Layout.astro'
+import Spacer from '@layouts/Spacer.astro'
+const { BASE_URL } = import.meta.env
+---
+
+<Layout pageName="about">
+  <main class="mx-auto max-w-4xl">
+    <Spacer>
+      <h1 class="text-5xl font-bold leading-[2.5]">About</h1>
+      <div class="flex flex-col items-center gap-2">
+        <Picture
+          src="/assets/images/img__lg.webp"
+          alt="ダミーテキスト"
+          srcset={{
+            sm: ['/assets/images/img__sm.webp 1x'],
+            lg: ['/assets/images/img__lg.webp 1x']
+          }}
+        />
+        <Picture
+          src="/assets/images/img_quality_check.webp"
+          srcset={{
+            lg: ['/assets/images/img_quality_check.webp 1x']
+          }}
+        />
+        <a href={BASE_URL}>戻る</a>
+      </div>
+    </Spacer>
+  </main>
+</Layout>

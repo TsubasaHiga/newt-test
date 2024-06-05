@@ -1,0 +1,53 @@
+---
+import '@styles/common.scss'
+
+import type { PageNameType } from '@type/PageDataListType'
+import GetPageDataFromPageDataList from '@utils/getPageDataFromPageDataList'
+import { SEO } from 'astro-seo'
+
+import { siteConfig } from '@/siteConfig'
+
+export interface Props {
+  pageName: PageNameType
+}
+const { pageName } = Astro.props
+const { title, description } = GetPageDataFromPageDataList(pageName)
+const { href, origin } = Astro.url
+---
+
+<head>
+  <SEO
+    title={title}
+    charset={'UTF-8'}
+    description={description}
+    openGraph={{
+      basic: {
+        title: title + ' | ' + siteConfig.siteName,
+        type: 'website',
+        image: origin + '/ogp-image.png',
+        url: href
+      },
+      optional: {
+        description: description,
+        locale: 'ja_JP',
+        siteName: siteConfig.siteName
+      },
+      image: {
+        width: 1200,
+        height: 630,
+        alt: siteConfig.siteName
+      }
+    }}
+    twitter={siteConfig.twitter}
+    extend={{
+      link: [{ rel: 'icon', href: '/favicon.svg' }],
+      meta: [
+        { name: 'viewport', content: 'width=device-width' },
+        { name: 'author', content: siteConfig.author },
+        { name: 'theme-color', content: siteConfig.themeColor }
+      ]
+    }}
+  />
+  <script src="@/main.ts"></script>
+  <slot />
+</head>
